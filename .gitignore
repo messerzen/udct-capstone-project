@@ -1,0 +1,12 @@
+# Python environments
+lib/
+bin/
+
+# AWS files
+.cfg
+adim-capstone-keys.csv
+.txt
+.pem
+
+# Notebooks
+.ipynb
