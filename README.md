@@ -226,8 +226,13 @@ WHERE a.cnpj_basico IN (61189288, 47100110, 49669856);
 In this scenario, where new files would be generated every morning, a event driven pipeline would be requeried, using AWS Trigger and Step Functions to activate each step of the pipeline. 
 
 ### If the database needed to be accessed by 100+ people.
-In this case
+In this case, [AWS Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html) can handle up to 500 connections. 
 
+
+## Technologies used in this project
+- AWS S3 for data storage
+- EMR Cluster using pySpark for large data set data processing to transform staging table to dimensional table
+- Amazon Redshift to store the dimensional model.
 
 #### Project Instructions
 
