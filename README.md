@@ -44,45 +44,51 @@ For this project, it will be considering only the first two parts files (part-01
 #### Dataset dictionary:
 
 **Stablishments data**:
- |-- cnpj_basico: string | Description: Root number of cnpj
- |-- cnpj_ordem: string | Description: Order number of cnpj
- |-- cnpj_dv: string | Description: Verification number of cnpj
- |-- cod_matfil: integer | Description: Head office or branch (1 for Head office; 0 for branch)
- |-- nome_fantasia: string | Description: Branch name
- |-- cod_sitcad: integer | Description: Stablishment status (active, inactive,..)
- |-- dt_sitcad: date | Description: Stablishment status date
- |-- codmot_sitcad: string | Description: Status motive
- |-- cidade_exterior: string | Description: City exterior name
- |-- cod_pais: string | Description: Country code
- |-- dt_inicioatividade: date | Description: Start date of activity
- |-- cod_cnae: integer | Description: Main activity code
- |-- cod_cnae_secundario: string | Description: Secondaries activities codes
- |-- add_tipo_logradouro: string | Description: Address info
- |-- add_logradouro: string | Description: Address info
- |-- add_numero: string | Description: Address numeber
- |-- add_complemento: string | Description: Address complement
- |-- add_bairro: string | Description: District
- |-- add_cep: integer | Description: postal-code
- |-- add_uf: string | Description: State
- |-- add_cod_mun: integer | Description: City code
- |-- contact_ddd1: string | Description: Phone 1 prefix
- |-- contact_phone1: string | Description: Phone 1 number
- |-- contact_ddd2: string | Description: Phone 2 prefix
- |-- contact_phone2: string | Description: Phone 2 number
- |-- contact_ddd_fax: string | Description: Fax prefix
- |-- contact_fax: string | Description: Fax number
- |-- contact_email: string | Description: Email contact 
- |-- cod_sitespecial: string | Description: Special status code
- |-- dt_sitespecial: date | Description: Special status date
+| **Column**          | Type    | Description                                             |
+| ------------------- | ------- | ------------------------------------------------------- |
+| cnpj_basico         | string  | Root number of cnpj                                     |
+| cnpj_ordem          | string  | Order number of cnpj                                    |
+| cnpj_dv             | integer | Verification number of cnpj                             |
+| cod_matfil          | string  | Head office or branch (1 for Head office; 0 for branch) |
+| nome_fantasia       | integer | Branch name                                             |
+| cod_sitcad          | date    | Stablishment status (active, inactive,..)               |
+| dt_sitcad           | string  | Stablishment status date                                |
+| codmot_sitcad       | string  | Status motive                                           |
+| cidade_exterior     | string  | City exterior name                                      |
+| cod_pais            | date    | Country code                                            |
+| dt_inicioatividade  | integer | Start date of activity                                  |
+| cod_cnae            | string  | Main activity code                                      |
+| cod_cnae_secundario | string  | Secondaries activities codes                            |
+| add_tipo_logradouro | string  | Address info                                            |
+| add_logradouro      | string  | Address info                                            |
+| add_numero          | string  | Address numeber                                         |
+| add_complemento     | string  | Address complement                                      |
+| add_bairro          | integer | District                                                |
+| add_cep             | string  | postal-code                                             |
+| add_uf              | integer | State                                                   |
+| add_cod_mun         | string  | City code                                               |
+| contact_ddd1        | string  | Phone 1 prefix                                          |
+| contact_phone1      | string  | Phone 1 number                                          |
+| contact_ddd2        | string  | Phone 2 prefix                                          |
+| contact_phone2      | string  | Phone 2 number                                          |
+| contact_ddd_fax     | string  | Fax prefix                                              |
+| contact_fax         | string  | Fax number                                              |
+| contact_email       | string  | Email contact                                           |
+| cod_sitespecial     | date    | Special status code                                     |
+| dt_sitespecial      | date    | Special status date                                     |
 
 **Companies data**
-|-- cnpj_basico: string | Description: Root number of cnpj
-|-- razao_social: string | Description: Company name
-|-- cod_natjuridica: integer | Description: Legal nature code
-|-- cod_qualiresponsavel: integer | Description: Qualification of the responsible person
-|-- capital_social: float | Description: Capital stock
-|-- cod_porte: integer | Description: Business size code
-|-- ente_fed: string | Description: Country
+| Column               | Type    | Description                             |
+| -------------------- | ------- | --------------------------------------- |
+| cnpj_basico          | string  | Root number of cnpj                     |
+| razao_social         | string  | Company name                            |
+| cod_natjuridica      | integer | Legal nature code                       |
+| cod_qualiresponsavel | integer | Qualification of the responsible person |
+| capital_social       | float   | Capital stock                           |
+| cod_porte            | integer | Business size code                      |
+| ente_fed             | string  | Country                                 |
+
+
 
 For more data details, acess [this link](https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-tributaria/cadastros/consultas/arquivos/NOVOLAYOUTDOSDADOSABERTOSDOCNPJ.pdf).
 
