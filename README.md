@@ -150,6 +150,23 @@ Also contact fields was keep in case the users want to make contact with the pot
 | phone_contact      | varchar | Phone contact with prefix                                    |
 | contact_email      | varchar | Email contact                                                |
 
+## Data quality checks
+
+Data quality checks includes:
+- Data schema from s3 bucket (pyspark for transforming raw data check)
+- No empty table in Redshift and match number of records between S3 source files and redshift tables
+
+
+### Data schema for s3 bucket 
+
+![schema_check](./schema_check.png)
+
+As can be seen Pyspark has set cnpj_basico and cnpj as integer, what makes sense because these fields contains only numbers. In our scenario, both of them are strings. In this case, is important to set the correct data type in CREATE TABLE SCHEMA. Considering that CNPJ is a formatted number with 14 digits, we cannot remove zeros in the beginning and end of string, because it would make some CNPJs contain less then 14 digits. The other fields were all correct parsed.
+
+![data_check](./data_check.png)
+
+For more details, access the [notebook](https://github.com/messerzen/udct-capstone-project/tree/main/etl/data_quality_checks.ipynb) inside etl folder (Run this notebook using EMR Notebooks)
+
 ## Data pipeline
 
 The datapipeline was developed using Amazon S3 service for storage, EMR Cluster running Spark for ETL script and Amazon Redshift as data warehouse storage.
