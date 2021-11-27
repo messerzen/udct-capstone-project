@@ -174,6 +174,17 @@ For more details, access the [notebook](https://github.com/messerzen/udct-capsto
 
 ![unique_key](./unique_key_constraint.png)
 
+
+#### Test automation
+
+The tests mentioned above are automated in `test_etl_process.py`. The results are showed below
+```
+----------------------------------------------------------------------
+Ran 4 tests in 29.542s
+
+OK
+```
+
 ## Data pipeline
 
 The datapipeline was developed using Amazon S3 service for storage, EMR Cluster running Spark for ETL script and Amazon Redshift as data warehouse storage.
@@ -284,5 +295,7 @@ In this case, [AWS Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/am
 
 7. On your ERM Cluster run `spark-submit transform_raw_files.py`
 
-8. Finally, run `python3 load_data.py`
+8. Then, run `python3 load_data.py`
+
+9. Finally, run `spark-submit test_etl_process.py` to run the tests.
 
