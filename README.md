@@ -41,6 +41,8 @@ Base on these two scenarios a database will be implemented in Amazon Redshift, c
 #### Dataset considerations
 For this project, it will be considering only the first two parts files (part-01.zip and part-02.zip) for stablishments and companies table due to AWS costs. Once the scripts run for these two parts, it can be scaled for the remaining parts if desired. 
 
+### Data schema for s3 bucket 
+
 #### Dataset dictionary:
 
 **Stablishments data**:
@@ -154,18 +156,23 @@ Also contact fields was keep in case the users want to make contact with the pot
 
 Data quality checks includes:
 - Data schema from s3 bucket (pyspark for transforming raw data check)
-- No empty table in Redshift and match number of records between S3 source files and redshift tables
 
-
-### Data schema for s3 bucket 
 
 ![schema_check](./schema_check.png)
 
 As can be seen Pyspark has set cnpj_basico and cnpj as integer, what makes sense because these fields contains only numbers. In our scenario, both of them are strings. In this case, is important to set the correct data type in CREATE TABLE SCHEMA. Considering that CNPJ is a formatted number with 14 digits, we cannot remove zeros in the beginning and end of string, because it would make some CNPJs contain less then 14 digits. The other fields were all correct parsed.
 
+- No empty table in Redshift and match number of records between S3 source files and redshift tables
+
+
 ![data_check](./data_check.png)
 
 For more details, access the [notebook](https://github.com/messerzen/udct-capstone-project/tree/main/etl/data_quality_checks.ipynb) inside etl folder (Run this notebook using EMR Notebooks)
+
+
+- Unique Key constraint: In this model, cnpj column should be unique (each stablishment has an unique CNPJ). Lets check if the total number of rows inside cnpj_receita federal table matches the total distinct number of CNPJs 
+
+![unique_key](./unique_key_constraint.png)
 
 ## Data pipeline
 
