@@ -11,11 +11,12 @@ def extract_transform_raw_files():
     """
 
     config = configparser.ConfigParser()
-    config.read('aws_paths.cfg')
+    config.read('/home/zen/Desenvolvimento/Environments/capstone-dataengineer/etl/aws_paths.cfg')
     spark = create_spark_session()
 
 
     STABLISHMENTS_RAW = config['S3']['STABLISHMENTS_RAW']
+    print(STABLISHMENTS_RAW)
 
     COMPANIES_RAW = config['S3']['COMPANIES_RAW']
     FACT_TABLE_CNPJ_PATH = config['S3']['FACT_TABLE_CNPJ']
@@ -115,3 +116,11 @@ def extract_transform_raw_files():
         ''')
 
     fact_table.write.option('delimiter',';').option('header', 'true').csv(FACT_TABLE_CNPJ_PATH)
+
+def main():
+    '''Executes extract_transform_raw_files
+    '''
+    extract_transform_raw_files()
+   
+if __name__ == '__main__':
+    main()

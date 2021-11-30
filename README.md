@@ -13,7 +13,7 @@ The others tables are dimension tables, that describes information contained in 
 - Cities. 
 - Legal nature description.
 - Status
-- Motive for the current status (if applicable).
+- Reasons for the current status (if applicable).
 - Roles description (for the company partners).
 
 ### Dataset size
@@ -27,16 +27,6 @@ Based on the information provided by the **Federal Revenue of *Brazil* (RFB)**, 
 ## Use cases
 
 For this project, the dataset will be prepared considering two scenarios:
-
-### Scenario 01
-
-A company wants to expand its market share over the country and needs to identify others companies with similar characteristics of its current clients. The profile is based on two main characteristics: business size, establishments age and activity (CNAE).
-
-### Scenario 02
-
-The same company wants to reproduce a dashboard to monitoring if a specify business activity is growing or decreasing in specifics states. 
-
-Base on these two scenarios a database will be implemented in Amazon Redshift, containing the main information about the establishments and companies. And the same database will be used to create aggregated tables with the information that will be used in the dashboards.
 
 #### Dataset considerations
 For this project, it will be considering only the first two parts files (part-01.zip and part-02.zip) for stablishments and companies table due to AWS costs. Once the scripts run for these two parts, it can be scaled for the remaining parts if desired. 
@@ -153,26 +143,15 @@ Also contact fields was keep in case the users want to make contact with the pot
 | contact_email      | varchar | Email contact                                                |
 
 ## Data quality checks
+All the tests use Pytest Framework (check project instructions to get more information about running `pytest` on EMR Clusters).
 
 Data quality checks includes:
 - Data schema from s3 bucket (pyspark for transforming raw data check)
 
-
-![schema_check](./schema_check.png)
-
-As can be seen Pyspark has set cnpj_basico and cnpj as integer, what makes sense because these fields contains only numbers. In our scenario, both of them are strings. In this case, is important to set the correct data type in CREATE TABLE SCHEMA. Considering that CNPJ is a formatted number with 14 digits, we cannot remove zeros in the beginning and end of string, because it would make some CNPJs contain less then 14 digits. The other fields were all correct parsed.
-
 - No empty table in Redshift and match number of records between S3 source files and redshift tables
-
-
-![data_check](./data_check.png)
-
-For more details, access the [notebook](https://github.com/messerzen/udct-capstone-project/tree/main/etl/data_quality_checks.ipynb) inside etl folder (Run this notebook using EMR Notebooks)
-
 
 - Unique Key constraint: In this model, cnpj column should be unique (each stablishment has an unique CNPJ). Lets check if the total number of rows inside cnpj_receita federal table matches the total distinct number of CNPJs 
 
-![unique_key](./unique_key_constraint.png)
 
 
 #### Test automation
@@ -197,9 +176,7 @@ In this pipeline, EMR Cluster already writes the fact table formatted file in s3
 
 ### Dataset usages
 
-Lets imagine that one user of our application works with final goods manufacturing, (clothes and accessories for instance). This client plans to expand his marketshare, and needs to find more clients. The main business activity of his current client is described by CNAE "4781400 - Retail trade of clothes and accessories." 
-
-So, this clients wants to know which cities there are more companies with this CNAE. 
+Which cities there are more companies with this CNAE. 
 
 ```
 SELECT c.nome AS city, 
@@ -271,7 +248,8 @@ In this case, [AWS Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/am
 
 
 ## Technologies used in this project
-- AWS S3 for data storage
+- AWS S3 for data storage;
+- Pystest framework for tests;
 - EMR Cluster using pySpark for large data set data processing to transform staging table to dimensional table
 - Amazon Redshift to store the dimensional model.
 
@@ -289,13 +267,13 @@ In this case, [AWS Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/am
 
 4. Copy the source files in etl folder to the EMR cluster machine using tunnel connection.
 
-5. Install configparser on your EMR Cluster using `pip sudo install configparser` and `pip sudo install psycopg2-binary`
+5. Install the custom package etl and all the required dependencies on your EMR Cluster using `pip sudo install .` 
 
-6. Provide your aws credentials and the file paths in `aws_paths.cfg` file.
+6. Provide your aws credentials and the file paths in `aws_paths.cfg` 
 
 7. On your ERM Cluster run `spark-submit transform_raw_files.py`
 
 8. Then, run `python3 load_data.py`
 
-9. Finally, run `spark-submit test_etl_process.py` to run the tests.
+9. Finally, run `pytest test/` to run the tests. In this case, it's necessary to configure the Pyspark path. [Check this tutorial](https://stackoverflow.com/questions/31976353/amazon-emr-pyspark-module-not-found)
 

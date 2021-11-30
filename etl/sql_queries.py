@@ -9,7 +9,7 @@ CNAES_DATA=config['S3']['CNAES_DATA']
 
 # CREATE STATEMENTS
 CREATE_CITIES_TABLE = '''
-    CREATE TABLE cities (
+    CREATE TABLE IF NOT EXISTS cities (
         codigo_ibge INT,
         nome VARCHAR,
         latitude DECIMAL,
@@ -23,14 +23,14 @@ CREATE_CITIES_TABLE = '''
 '''
 
 CREATE_CNAES_TABLE = '''
-    CREATE TABLE cnaes (
+    CREATE TABLE IF NOT EXISTS cnaes (
         cod_cnae INT,
         cnae_description VARCHAR
     )
 '''
 
 CREATE_CNPJS_RECEITA_FEDERAL_TABLE = '''
-    CREATE TABLE cnpj_receita_federal (
+    CREATE TABLE IF NOT EXISTS cnpj_receita_federal (
             cnpj_basico VARCHAR,
             cnpj VARCHAR,
             matriz_filial VARCHAR,
@@ -58,16 +58,16 @@ COPY_DIMENSION_CITIES_DATA = '''
     COPY cities
     FROM '{}'
     IAM_ROLE '{}'
-    CSV DELIMITER ';' 
-    IGNOREHEADER 1;
+    CSV DELIMITER ';'
+    IGNOREHEADER 1; 
 '''.format(CITIES_DATA, IAM)
 
 COPY_DIMENSION_CNAE_DATA = '''
     COPY cnaes
     FROM '{}'
     IAM_ROLE '{}'
-    CSV DELIMITER ';' 
-    IGNOREHEADER 1;
+    CSV DELIMITER ';'
+    IGNOREHEADER 1; 
 '''.format(CNAES_DATA, IAM)
 
 create_tables_queries = [CREATE_CITIES_TABLE, CREATE_CNAES_TABLE, CREATE_CNPJS_RECEITA_FEDERAL_TABLE]

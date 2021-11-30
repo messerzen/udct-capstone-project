@@ -1,5 +1,4 @@
-
-from spark_session_creator import create_spark_session
+from etl.spark_session_creator import create_spark_session
 
 def get_number_of_records_from_s3_files(s3_folder_path):
 
